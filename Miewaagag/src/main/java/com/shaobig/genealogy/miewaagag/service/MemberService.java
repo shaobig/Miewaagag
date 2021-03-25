@@ -12,9 +12,11 @@ import com.shaobig.genealogy.miewaagag.model.entities.Member;
 import com.shaobig.genealogy.miewaagag.model.repository.MemberRepository;
 import com.shaobig.genealogy.miewaagag.service.entity.CrudEntity;
 import com.shaobig.genealogy.miewaagag.service.filter.AgeMemberFilter;
+import com.shaobig.genealogy.miewaagag.service.sorting.member.MemberSorter;
+import com.shaobig.genealogy.miewaagag.service.sorting.member.MemberSorterFactory;
 
 @Service
-public class MemberService implements CrudEntity<Member, Integer>, AgeMemberFilter {
+public class MemberService implements CrudEntity<Member, Integer>, AgeMemberFilter, MemberServiceSorter {
 	
 	@Autowired
 	private MemberRepository repository;
@@ -68,5 +70,11 @@ public class MemberService implements CrudEntity<Member, Integer>, AgeMemberFilt
 		int maxYear = currentYear - minAge;
 		
 		return repository.findByBirthYearBetween(minYear, maxYear);
+	}
+
+	@Override
+	public List<Member> getAllSorted(String sortField) {
+		MemberSorter sorter = MemberSorterFactory.getMemberSorter(sortField);
+		return sorter.getAllSorted(repository);
 	}
 }

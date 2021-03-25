@@ -10,4 +10,6 @@ import com.shaobig.genealogy.miewaagag.model.entities.Member;
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Integer> {
 	List<Member> findByBirthYearBetween(int min, int max);
+	List<Member> findByOrderByBirthYearDesc();
+	List<Member> findByOrderBySexAsc();
 }

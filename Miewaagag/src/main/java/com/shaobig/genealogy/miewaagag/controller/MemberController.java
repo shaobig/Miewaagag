@@ -34,10 +34,13 @@ public class MemberController {
 	
 	@GetMapping("/all")
 	public String getAllPage(
+			@RequestParam(name = "sortby", defaultValue = "id") String sortField,
 			Model model
 			) {
 		
-		List<Member> members = service.getAll();
+		sortField = sortField.toLowerCase();
+		
+		List<Member> members = service.getAllSorted(sortField);
 		model.addAttribute("members", members);
 		
 		return "members";
