@@ -1,4 +1,4 @@
-package com.shaobig.genealogy.miewaagag.service;
+package com.shaobig.genealogy.miewaagag.service.entity;
 
 import java.util.List;
 

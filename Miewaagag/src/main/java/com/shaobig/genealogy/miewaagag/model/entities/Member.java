@@ -16,6 +16,9 @@ import com.shaobig.genealogy.miewaagag.model.entities.sex.Sex;
 
 @Entity(name = "Member")
 public class Member implements IdEntity<Integer> {
+	
+	private static final int MIN_AGE_DIFFERENCE = 14;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
@@ -78,11 +81,31 @@ public class Member implements IdEntity<Integer> {
 	public Parents getParents() {
 		return parents;
 	}
+	
+	public void setMother(Member mother) {
+		if (mother != null) {
+			if (checkParentValidAge(mother)) {
+				getParents().setMother(mother);
+			}
+		}
+	}
+	
+	public void setFather(Member father) {
+		if (father != null) {
+			if (checkParentValidAge(father)) {
+				getParents().setFather(father);
+			}
+		}
+	}
 
 	public void setParents(Parents parents) {
 		if (parents != null) {
 			this.parents = parents;
 		}
+	}
+	
+	public boolean checkParentValidAge(Member parent) {
+		return getBirthYear() - parent.getBirthYear() > MIN_AGE_DIFFERENCE;
 	}
 
 	@Override

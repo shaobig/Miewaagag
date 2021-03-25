@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head> 
+	    <title>Let's dig into the legacy</title> 
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	</head>
+	<body>
+		<div id = "all_members">
+			<table>
+				<thead>
+					<tr th:if = "${member != null}">
+						<th>Id</th>
+						<th>Surname</th>
+						<th>Name</th>
+						<th>Patronymic</th>
+						<th>Year of birth</th>
+						<th>Sex</th>
+						<th>Mother</th>
+						<th>Father</th>
+					</tr>	
+				</thead>			
+				<tbody>
+					<tr th:if = "${member == null}">
+						<td th:text = "'No member found by id = ' + ${id}">
+					</tr>
+					<tr th:if = "${member != null}">
+						<td th:text = "${member.id}"></td>
+						<td th:text = "${member.fullName.commonName.surname}"></td>
+						<td th:text = "${member.fullName.commonName.name}"></td>
+						<td th:text = "${member.fullName.patronymic}"></td>
+						<td th:text = "${member.birthYear}"></td>
+						<td th:text = "${member.sex}"></td>
+						
+						<td th:text = "${member.parents.mother != null} 
+						? ${member.parents.mother.fullName.commonName.name.substring(0,1)} 
+						+ '. ' 
+						+ ${member.parents.mother.fullName.commonName.surname}
+						: 'no data'"></td>
+						
+						<td th:text = "${member.parents.father != null} 
+						? ${member.parents.father.fullName.commonName.name.substring(0,1)} 
+						+ '. ' 
+						+ ${member.parents.father.fullName.commonName.surname}
+						: 'no data'"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>

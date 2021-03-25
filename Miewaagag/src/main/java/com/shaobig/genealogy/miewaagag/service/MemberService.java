@@ -1,17 +1,20 @@
 package com.shaobig.genealogy.miewaagag.service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.time.LocalDate;
 import java.util.List;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.shaobig.genealogy.miewaagag.model.entities.Member;
 import com.shaobig.genealogy.miewaagag.model.repository.MemberRepository;
+import com.shaobig.genealogy.miewaagag.service.entity.CrudEntity;
+import com.shaobig.genealogy.miewaagag.service.filter.AgeMemberFilter;
 
 @Service
-public class MemberService implements CrudEntity<Member, Integer> {
+public class MemberService implements CrudEntity<Member, Integer>, AgeMemberFilter {
 	
 	@Autowired
 	private MemberRepository repository;
@@ -23,20 +26,21 @@ public class MemberService implements CrudEntity<Member, Integer> {
 
 	@Override
 	public Member getById(Integer id) {
-		return repository.findById(id)
-				.get();
+		Member member = new Member();
+		
+		try {
+			member = repository.getOne(id);
+		}
+		catch (EntityNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		return member;
 	}
 
 	@Override
 	public List<Member> getAll() {
-		Iterator<Member> memberIterator = repository.findAll().iterator();
-		List<Member> members = new ArrayList<>();
-		
-		while (memberIterator.hasNext()) {
-			members.add(memberIterator.next());
-		}
-		
-		return members;
+		return repository.findAll();
 	}
 
 	@Override
@@ -54,5 +58,15 @@ public class MemberService implements CrudEntity<Member, Integer> {
 	@Override
 	public void deleteById(Integer id) {
 		repository.deleteById(id);
+	}
+
+	@Override
+	public List<Member> getMembersByAgeRange(int minAge, int maxAge) {
+		int currentYear = LocalDate.now().getYear();
+		
+		int minYear = currentYear - maxAge;
+		int maxYear = currentYear - minAge;
+		
+		return repository.findByBirthYearBetween(minYear, maxYear);
 	}
 }

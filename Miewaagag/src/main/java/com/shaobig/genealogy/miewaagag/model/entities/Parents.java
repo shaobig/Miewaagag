@@ -19,6 +19,7 @@ public class Parents implements IdEntity<Integer> {
 	@ManyToOne
 	@JoinColumn(name = "mother_id")
 	private Member mother;
+	
 	@ManyToOne
 	@JoinColumn(name = "father_id")
 	private Member father;
@@ -35,7 +36,9 @@ public class Parents implements IdEntity<Integer> {
 	}
 
 	public void setMother(Member mother) {
-		this.mother = mother;
+		if (mother != null) {
+			this.mother = mother;
+		}
 	}
 
 	public Member getFather() {
@@ -43,7 +46,9 @@ public class Parents implements IdEntity<Integer> {
 	}
 
 	public void setFather(Member father) {
-		this.father = father;
+		if (father != null) {
+			this.father = father;
+		}
 	}
 
 	@Override

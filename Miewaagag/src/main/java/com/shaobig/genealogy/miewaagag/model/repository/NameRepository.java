@@ -1,9 +1,9 @@
 package com.shaobig.genealogy.miewaagag.model.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.shaobig.genealogy.miewaagag.model.entities.name.Name;
 
 @Repository
-public interface NameRepository extends CrudRepository<Name, Integer> {}
+public interface NameRepository extends JpaRepository<Name, Integer> {}

@@ -31,10 +31,16 @@ public class Main {
 			MemberRepository memberRepo
 			) {
 		return args -> {
+			
+			//First member's mother
+			Parents memberOneMotherParents = new Parents(null, null);
+			parentsRepo.save(memberOneMotherParents);
+			
 			Name memberOneMotherName = new Name("Marina", "Kupchuk");
-			FullName memberOneMotherFullName = new FullName(memberOneMotherName);
+			FullName memberOneMotherFullName = new FullName(memberOneMotherName, "Alexandrovna");
 			Member memberOneMother = new Member.Builder(memberOneMotherFullName)
 					.setBirthYear(1980)
+					.setParents(memberOneMotherParents)
 					.setSex(Sex.FEMALE)
 					.getMember();
 			
@@ -42,10 +48,15 @@ public class Main {
 			fullNameRepo.save(memberOneMotherFullName);
 			memberRepo.save(memberOneMother);
 			
+			//First member's father
+			Parents memberOneFatherParents = new Parents(null, null);
+			parentsRepo.save(memberOneFatherParents);
+			
 			Name memberOneFatherName = new Name("Ivan", "Bubkin");
-			FullName memberOneFatherFullName = new FullName(memberOneFatherName);
+			FullName memberOneFatherFullName = new FullName(memberOneFatherName, "Mikhailovich");
 			Member memberOneFather = new Member.Builder(memberOneFatherFullName)
 					.setBirthYear(1974)
+					.setParents(memberOneFatherParents)
 					.setSex(Sex.FEMALE)
 					.getMember();
 			
@@ -53,17 +64,18 @@ public class Main {
 			fullNameRepo.save(memberOneFatherFullName);
 			memberRepo.save(memberOneFather);
 			
+			//Member himself
 			Parents memberOneParents = new Parents(memberOneMother, memberOneFather);
 			parentsRepo.save(memberOneParents);
 					
 			Name memberOneName = new Name("Alexander", "Bubkin");
-			FullName memberOneFullName = new FullName(memberOneName);
+			FullName memberOneFullName = new FullName(memberOneName, "Ivanovich");
 			Member memberOne = new Member.Builder(memberOneFullName)
 					.setBirthYear(2003)
 					.setParents(memberOneParents)
 					.setSex(Sex.MALE)
 					.getMember();
-			
+
 			nameRepo.save(memberOneName);
 			fullNameRepo.save(memberOneFullName);
 			memberRepo.save(memberOne);
