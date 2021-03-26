@@ -3,16 +3,20 @@
 	<head> 
 	    <title>Let's dig into the legacy</title> 
 	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <link rel = "stylesheet" href = "/css/member.css" th:href = "@{/css/member.css}">
 	</head>
 	<body>
+		<div id = "all_members_text">
+			<p th:text = "'Member #' + ${id}"></p>
+		</div>
 		<div id = "all_members">
 			<table>
 				<thead>
 					<tr th:if = "${member != null}">
 						<th>Id</th>
-						<th>Surname</th>
 						<th>Name</th>
 						<th>Patronymic</th>
+						<th>Surname</th>
 						<th>Year of birth</th>
 						<th>Sex</th>
 						<th>Mother</th>
@@ -25,9 +29,9 @@
 					</tr>
 					<tr th:if = "${member != null}">
 						<td th:text = "${member.id}"></td>
-						<td th:text = "${member.fullName.commonName.surname}"></td>
 						<td th:text = "${member.fullName.commonName.name}"></td>
-						<td th:text = "${member.fullName.patronymic}"></td>
+						<td th:text = "${member.fullName.patronymic.length != 0} ? ${member.fullName.patronymic} : 'no data'"></td>
+						<td th:text = "${member.fullName.commonName.surname}"></td>
 						<td th:text = "${member.birthYear}"></td>
 						<td th:text = "${member.sex}"></td>
 						

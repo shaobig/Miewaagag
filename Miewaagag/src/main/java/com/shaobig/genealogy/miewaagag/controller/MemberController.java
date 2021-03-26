@@ -48,8 +48,8 @@ public class MemberController {
 	
 	@GetMapping("/filter")
 	public String getFilterPage(
-			@RequestParam(name = "min") int minAge,
-			@RequestParam(name = "max") int maxAge,
+			@RequestParam(name = "min", defaultValue = "0") int minAge,
+			@RequestParam(name = "max", defaultValue = "100") int maxAge,
 			Model model
 			) {
 		

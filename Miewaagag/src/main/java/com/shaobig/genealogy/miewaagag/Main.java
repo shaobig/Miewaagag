@@ -36,10 +36,10 @@ public class Main {
 			Parents memberOneMotherParents = new Parents(null, null);
 			parentsRepo.save(memberOneMotherParents);
 			
-			Name memberOneMotherName = new Name("Marina", "Kupchuk");
-			FullName memberOneMotherFullName = new FullName(memberOneMotherName, "Alexandrovna");
+			Name memberOneMotherName = new Name("Elena", "Fresco");
+			FullName memberOneMotherFullName = new FullName(memberOneMotherName);
 			Member memberOneMother = new Member.Builder(memberOneMotherFullName)
-					.setBirthYear(1980)
+					.setBirthYear(1989)
 					.setParents(memberOneMotherParents)
 					.setSex(Sex.FEMALE)
 					.getMember();
@@ -52,12 +52,12 @@ public class Main {
 			Parents memberOneFatherParents = new Parents(null, null);
 			parentsRepo.save(memberOneFatherParents);
 			
-			Name memberOneFatherName = new Name("Ivan", "Bubkin");
-			FullName memberOneFatherFullName = new FullName(memberOneFatherName, "Mikhailovich");
+			Name memberOneFatherName = new Name("Isaac", "Fresco");
+			FullName memberOneFatherFullName = new FullName(memberOneFatherName);
 			Member memberOneFather = new Member.Builder(memberOneFatherFullName)
-					.setBirthYear(1974)
+					.setBirthYear(1991)
 					.setParents(memberOneFatherParents)
-					.setSex(Sex.FEMALE)
+					.setSex(Sex.MALE)
 					.getMember();
 			
 			nameRepo.save(memberOneFatherName);
@@ -68,10 +68,10 @@ public class Main {
 			Parents memberOneParents = new Parents(memberOneMother, memberOneFather);
 			parentsRepo.save(memberOneParents);
 					
-			Name memberOneName = new Name("Alexander", "Bubkin");
-			FullName memberOneFullName = new FullName(memberOneName, "Ivanovich");
+			Name memberOneName = new Name("Jack", "Fresco");
+			FullName memberOneFullName = new FullName(memberOneName, "Isaacovich");
 			Member memberOne = new Member.Builder(memberOneFullName)
-					.setBirthYear(2003)
+					.setBirthYear(2016)
 					.setParents(memberOneParents)
 					.setSex(Sex.MALE)
 					.getMember();
