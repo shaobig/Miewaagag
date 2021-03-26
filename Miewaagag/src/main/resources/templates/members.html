@@ -9,6 +9,36 @@
 		<div id = "all_members_text">
 			<p>List of all members</p>
 		</div>
+		<div id = "adjust_block">
+			<form action = "filter" method = "get">
+				<p>
+					<label>Min age:</label>
+					<input class = "filter" type = "text" name = "min_age" pattern = "[0-9]{1,3}"></input>
+				</p>
+				<p>
+					<label>Max age:</label>
+					<input class = "filter" type = "text" name = "max_age" pattern = "[0-9]{1,3}"></input>
+				</p>
+				<p>
+					<label>Sort by:</label>		
+					<input type = "radio" name = "sortby" value = "id">
+					<label>Id</label>
+					<input type = "radio" name = "sortby" value = "name">
+					<label>Name</label>
+					<input type = "radio" name = "sortby" value = "patronymic">
+					<label>Patronymic</label>
+					<input type = "radio" name = "sortby" value = "surname">
+					<label>Surname</label>
+					<input type = "radio" name = "sortby" value = "age">
+					<label>Age</label>
+					<input type = "radio" name = "sortby" value = "sex">
+					<label>Sex</label>
+				</p>
+				<p>
+					<input type = "submit" value = "Accept"></input>
+				</p>
+			</form>
+		</div>
 		<div id = "all_members">
 			<table>
 				<thead>
@@ -17,7 +47,7 @@
 						<th>Name</th>
 						<th>Patronymic</th>
 						<th>Surname</th>
-						<th>Year of birth</th>
+						<th>Year</th>
 						<th>Sex</th>
 						<th>Mother</th>
 						<th>Father</th>

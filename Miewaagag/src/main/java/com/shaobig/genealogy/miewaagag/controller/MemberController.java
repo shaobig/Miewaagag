@@ -1,5 +1,6 @@
 package com.shaobig.genealogy.miewaagag.controller;
 
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shaobig.genealogy.miewaagag.model.entities.Member;
 import com.shaobig.genealogy.miewaagag.service.MemberService;
+import com.shaobig.genealogy.miewaagag.service.sorting.member.comparator.MemberComparatorFactory;
 
 @Controller
 public class MemberController {
@@ -48,12 +50,17 @@ public class MemberController {
 	
 	@GetMapping("/filter")
 	public String getFilterPage(
-			@RequestParam(name = "min", defaultValue = "0") int minAge,
-			@RequestParam(name = "max", defaultValue = "100") int maxAge,
+			@RequestParam(name = "min_age", defaultValue = "0") int minAge,
+			@RequestParam(name = "max_age", defaultValue = "100") int maxAge,
+			@RequestParam(name = "sortby", defaultValue = "id") String sortField,
 			Model model
 			) {
 		
+		Comparator<Member> comparator = MemberComparatorFactory.getComparator(sortField);
+		
 		List<Member> members = service.getMembersByAgeRange(minAge, maxAge);
+		members.sort(comparator);		
+		
 		model.addAttribute("members", members);
 		
 		return "members";
