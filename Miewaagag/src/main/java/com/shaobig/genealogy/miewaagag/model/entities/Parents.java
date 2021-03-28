@@ -8,12 +8,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.shaobig.genealogy.miewaagag.model.entities.other.IdEntity;
+import com.sun.istack.NotNull;
 
 @Entity(name = "Parents")
 public class Parents implements IdEntity<Integer> {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NotNull
 	private Integer id;
 	
 	@ManyToOne
@@ -29,6 +31,18 @@ public class Parents implements IdEntity<Integer> {
 	public Parents(Member mother, Member father) {
 		this.mother = mother;
 		this.father = father;
+	}
+	
+	@Override
+	public Integer getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(Integer id) {
+		if (id > 0) {
+			this.id = id;
+		}
 	}
 
 	public Member getMother() {
@@ -52,14 +66,39 @@ public class Parents implements IdEntity<Integer> {
 	}
 
 	@Override
-	public Integer getId() {
-		return id;
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((father == null) ? 0 : father.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((mother == null) ? 0 : mother.hashCode());
+		return result;
 	}
 
 	@Override
-	public void setId(Integer id) {
-		if (id > 0) {
-			this.id = id;
-		}
-	}
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Parents other = (Parents) obj;
+		if (father == null) {
+			if (other.father != null)
+				return false;
+		} else if (!father.equals(other.father))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (mother == null) {
+			if (other.mother != null)
+				return false;
+		} else if (!mother.equals(other.mother))
+			return false;
+		return true;
+	}	
 }

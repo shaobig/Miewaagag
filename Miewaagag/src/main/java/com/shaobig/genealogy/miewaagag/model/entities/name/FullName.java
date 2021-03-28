@@ -8,12 +8,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.shaobig.genealogy.miewaagag.model.entities.other.IdEntity;
+import com.sun.istack.NotNull;
 
 @Entity(name = "FullName")
 public class FullName implements IFullName, IdEntity<Integer> {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NotNull
 	private Integer id;
 	
 	@ManyToOne

@@ -29,6 +29,10 @@ input[type="text"] {
 	background-color: #e4decd;
 }
 
+#adjust_block {
+	width: 40%;
+}
+
 /*Header*/
 #all_members_text > p {
 	font-size: 20px;

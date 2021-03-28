@@ -4,15 +4,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import com.shaobig.genealogy.miewaagag.model.entities.other.IdEntity;
+import com.sun.istack.NotNull;
 
 @Entity(name = "Name")
 public class Name implements IdEntity<Integer> {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NotNull
 	private Integer id;
 	
 	private String name;

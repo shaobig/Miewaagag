@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import com.shaobig.genealogy.miewaagag.model.entities.name.FullName;
 import com.shaobig.genealogy.miewaagag.model.entities.other.IdEntity;
 import com.shaobig.genealogy.miewaagag.model.entities.sex.Sex;
+import com.sun.istack.NotNull;
 
 @Entity(name = "Member")
 public class Member implements IdEntity<Integer> {
@@ -20,7 +21,8 @@ public class Member implements IdEntity<Integer> {
 	private static final int MIN_AGE_DIFFERENCE = 14;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@NotNull
 	private Integer id;
 	
 	@ManyToOne
@@ -46,6 +48,18 @@ public class Member implements IdEntity<Integer> {
 		this.birthYear = birthYear;
 		this.sex = sex;
 		this.parents = parents;
+	}
+	
+	@Override
+	public Integer getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(Integer id) {
+		if (id > 0) {
+			this.id = id;
+		}
 	}
 
 	public FullName getFullName() {
@@ -108,18 +122,6 @@ public class Member implements IdEntity<Integer> {
 		return getBirthYear() - parent.getBirthYear() > MIN_AGE_DIFFERENCE;
 	}
 
-	@Override
-	public Integer getId() {
-		return id;
-	}
-
-	@Override
-	public void setId(Integer id) {
-		if (id > 0) {
-			this.id = id;
-		}
-	}
-	
 	public static class Builder {
 		private Member member;
 		
@@ -145,5 +147,48 @@ public class Member implements IdEntity<Integer> {
 		public Member getMember() {
 			return member;
 		}
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + birthYear;
+		result = prime * result + ((fullName == null) ? 0 : fullName.hashCode());
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((parents == null) ? 0 : parents.hashCode());
+		result = prime * result + ((sex == null) ? 0 : sex.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Member other = (Member) obj;
+		if (birthYear != other.birthYear)
+			return false;
+		if (fullName == null) {
+			if (other.fullName != null)
+				return false;
+		} else if (!fullName.equals(other.fullName))
+			return false;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (parents == null) {
+			if (other.parents != null)
+				return false;
+		} else if (!parents.equals(other.parents))
+			return false;
+		if (sex != other.sex)
+			return false;
+		return true;
 	}
 }
