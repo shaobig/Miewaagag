@@ -76,9 +76,14 @@ public class Member implements IdEntity<Integer> {
 		return birthYear;
 	}
 	
-	public void setBirthYear(int birthYear) {
-		if (birthYear >= 0 && birthYear <= LocalDate.now().getYear()) {
+	public void setBirthYear(int birthYear) throws IllegalArgumentException {
+		int currentYear = LocalDate.now().getYear();
+		
+		if (birthYear >= 0 && birthYear <= currentYear) {
 			this.birthYear = birthYear;
+		}
+		else {
+			throw new IllegalArgumentException("The birth year doesn't satisfy the appropriate range between 0 and " + currentYear);
 		}
 	}
 	
@@ -96,18 +101,24 @@ public class Member implements IdEntity<Integer> {
 		return parents;
 	}
 	
-	public void setMother(Member mother) {
-		if (mother != null) {
+	public void setMother(Member mother) throws IllegalArgumentException {
+		if (mother != null && mother.getSex().equals(Sex.FEMALE)) {
 			if (checkParentValidAge(mother)) {
 				getParents().setMother(mother);
+			}
+			else {
+				throw new IllegalArgumentException("Mother's age doesn't satisfy the min age difference with own child");
 			}
 		}
 	}
 	
-	public void setFather(Member father) {
-		if (father != null) {
+	public void setFather(Member father) throws IllegalArgumentException {
+		if (father != null && father.getSex().equals(Sex.MALE)) {
 			if (checkParentValidAge(father)) {
 				getParents().setFather(father);
+			}
+			else {
+				throw new IllegalArgumentException("Father's age doesn't satisfy the min age difference with own child");
 			}
 		}
 	}

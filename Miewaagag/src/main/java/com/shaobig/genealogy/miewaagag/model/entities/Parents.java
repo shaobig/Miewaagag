@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.shaobig.genealogy.miewaagag.model.entities.other.IdEntity;
+import com.shaobig.genealogy.miewaagag.model.entities.sex.Sex;
 import com.sun.istack.NotNull;
 
 @Entity(name = "Parents")
@@ -39,9 +40,12 @@ public class Parents implements IdEntity<Integer> {
 	}
 
 	@Override
-	public void setId(Integer id) {
+	public void setId(Integer id) throws IllegalArgumentException {
 		if (id > 0) {
 			this.id = id;
+		}
+		else {
+			throw new IllegalArgumentException("Id is less than 0");
 		}
 	}
 
